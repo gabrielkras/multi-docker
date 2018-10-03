@@ -1,0 +1,22 @@
+sudo: required
+service:
+  - docker
+
+before_install:
+  - docker build -t widesoftware/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run widesoftware/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t widesoftware/multi-client ./client
+  - docker build -t widesoftware/multi-nginx ./nginx
+  - docker build -t widesoftware/multi-server ./server
+  - docker build -t widesoftware/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them into docker hub
+  - docker push widesoftware/multi-client
+  - docker push widesoftware/multi-nginx
+  - docker push widesoftware/multi-server
+  - docker push widesoftware/multi-worker
