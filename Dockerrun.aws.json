@@ -5,19 +5,32 @@
             "name": "client",
             "image": "widesoftware/multi-client",
             "hostname": "client",
-            "essential": "false"
+            "essential": false
         },
         {
             "name": "server",
             "image": "widesoftware/multi-server",
             "hostname": "api",
-            "essential": "false"   
+            "essential": false   
         },
         {
-            "name": "server",
+            "name": "worker",
             "image": "widesoftware/multi-worker",
             "hostname": "worker",
-            "essential": "false"   
+            "essential": false   
+        },
+        {
+            "name": "nginx",
+            "image": "widesoftware/multi-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]   
         }
     ]
 }
