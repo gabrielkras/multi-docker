@@ -20,3 +20,16 @@ after_success:
   - docker push widesoftware/multi-nginx
   - docker push widesoftware/multi-server
   - docker push widesoftware/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-2
+  app: multi-docker-gabs
+  env:  MultiDockerGabs-env
+  bucket_name: elasticbeanstalk-us-west-2-769177069788
+  bucket_path: multi-docker-gabs
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY

@@ -1,0 +1,23 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "widesoftware/multi-client",
+            "hostname": "client",
+            "essential": "false"
+        },
+        {
+            "name": "server",
+            "image": "widesoftware/multi-server",
+            "hostname": "api",
+            "essential": "false"   
+        },
+        {
+            "name": "server",
+            "image": "widesoftware/multi-worker",
+            "hostname": "worker",
+            "essential": "false"   
+        }
+    ]
+}
